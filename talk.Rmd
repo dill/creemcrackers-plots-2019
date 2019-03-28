@@ -1,0 +1,70 @@
+---
+title: "Plotting stuff in space"
+author: "David L Miller and Théo Michelot"
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      slideNumberFormat: ""
+    seal: false
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+css: custom.css
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(viridis)
+opts_chunk$set(cache=TRUE, echo=FALSE, message=FALSE, warning=FALSE)
+
+# some useful libraries
+library(RColorBrewer)
+library(ggplot2)
+```
+
+class: title-slide, inverse, center
+
+# Plotting stuff in space
+
+## Good practice in information conveyance
+<br/>
+<br/>
+### David L Miller and Théo Michelot
+
+<div style="position: absolute; bottom: 15px; vertical-align: center; right: 10px;">
+<h3>CREEM Crackers 29 March 2019</h3>
+</div>
+
+---
+
+# Setting some bounds
+
+- Want to plot some continuous phenomena in space
+  - probability of presence, utilization, abundance etc
+- Values are important (not just "background")
+
+
+---
+
+# WE ARE NOT GOING TO TALK ABOUT:
+
+- colour schemes
+- projections
+- whether ggplot2 is better than base graphics
+- how ugly Dave's plots are in general
+
+---
+
+# To contour or not to contour?
+
+
+---
+
+# Are continuous legends actually useless?
+
+
+---
+
+
+
