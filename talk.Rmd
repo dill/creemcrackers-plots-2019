@@ -7,6 +7,7 @@ output:
       highlightStyle: github
       highlightLines: true
       slideNumberFormat: ""
+      ratio: "16:9"
     seal: false
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
 css: custom.css
@@ -16,7 +17,7 @@ css: custom.css
 ```{r setup, include=FALSE}
 library(knitr)
 library(viridis)
-opts_chunk$set(cache=TRUE, echo=FALSE, message=FALSE, warning=FALSE)
+opts_chunk$set(cache=TRUE, message=FALSE, warning=FALSE)
 
 # some useful libraries
 library(RColorBrewer)
@@ -51,8 +52,116 @@ class: title-slide, inverse, center
 
 - colour schemes
 - projections
-- whether ggplot2 is better than base graphics
+- whether `ggplot2` is better than `base` graphics
 - how ugly Dave's plots are in general
+
+---
+
+```{r, echo=FALSE}
+load("data/afttdat.RData")
+tp <- subset(plotdat, model=="tp")
+pf <- subset(plotdat, model=="pf")
+```
+
+# Some data for examples
+
+- Predictions of sperm whale abundance over the US AFTT
+- A few issues:
+  - 2 sets of model results, need to facet
+  - 1 model "tp" has huge range
+
+```{r}
+range(tp$p)
+range(pf$p)
+```
+
+---
+
+# Basic plot
+
+```{r, fig.width=10, fig.height=4}
+ggplot(plotdat) +
+  geom_tile(aes(x=x,y=y, fill=p)) +
+  coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
+  theme_minimal() +
+  us +
+  facet_wrap(~model)
+```
+
+---
+
+# Just "pf"
+
+.pull-left[
+```{r, echo=FALSE}
+basic_pf <- ggplot(pf) +
+  geom_tile(aes(x=x,y=y, fill=p)) +
+  coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
+  theme_minimal() +
+  us
+print(basic_pf)
+```
+]
+
+.pull-right[
+```{r, eval=FALSE}
+ggplot(pf) +
+  geom_tile(aes(x=x,y=y, fill=p)) +
+  coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
+  theme_minimal() +
+  us
+```
+]
+
+
+
+---
+
+# Just "tp"
+
+.pull-left[
+```{r, echo=FALSE}
+basic_tp <- ggplot(tp) +
+  geom_tile(aes(x=x,y=y, fill=p)) +
+  coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
+  theme_minimal() +
+  us
+print(basic_tp)
+```
+]
+
+.pull-right[
+```{r, eval=FALSE}
+ggplot(tp) +
+  geom_tile(aes(x=x,y=y, fill=p)) +
+  coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
+  theme_minimal() +
+  us
+```
+]
+
+
+---
+
+# First let's focus on "tp"
+
+
+
+```{r}
+#ggplot(plotdat) +
+#  geom_tile(aes(x=x,y=y, fill=p))+
+#  theme_minimal() +
+#  coord_equal(xlim=range(xgrid$x), ylim=range(xgrid$y), expand=FALSE) +
+#  us +
+#  labs(fill="") +
+#  theme(axis.text=element_blank(),
+#        axis.title=element_blank(),
+#        legend.position="bottom",
+#        legend.direction="horizontal")
+```
+
+
+
 
 ---
 
