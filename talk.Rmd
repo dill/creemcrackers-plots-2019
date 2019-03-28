@@ -153,13 +153,6 @@ basic_tp + scale_fill_viridis_c(option="E")
 
 ---
 
-# Life advice
-
-![](images/anne churchland.png)
-
-
----
-
 # log scale?
 
 ```{r}
@@ -179,6 +172,9 @@ basic_tp + scale_fill_viridis_c(option="E") +
 
 # Are continuous legends actually useless?
 
+```{r}
+basic_tp + scale_fill_viridis_c(option="E", trans="log")
+```
 
 ---
 
