@@ -224,8 +224,9 @@ ggplot(tp, aes(x=x,y=y, fill=pd)) +
 
 # To contour or not to contour?
 
+
 ```{r}
-basic_tp + scale_fill_viridis_c(option="E") +
+basic_pf + scale_fill_viridis_c(option="E") +
   geom_contour(aes(z=p))
 ```
 
@@ -234,9 +235,11 @@ basic_tp + scale_fill_viridis_c(option="E") +
 
 # That default looks awful
 
+( in `ggplot2` you don't get contour labels? )
+
 ```{r}
-basic_tp + scale_fill_viridis_c(option="E") +
-  geom_contour(aes(z=p), binwidth=1000)
+basic_pf + scale_fill_viridis_c(option="E") +
+  geom_contour(aes(z=p), binwidth=1)
 ```
 
 
@@ -269,7 +272,7 @@ basic_tp +
 ```{r}
 basic_tp +
  scale_fill_viridis_c(option="E",
-                      breaks=pretty(tp$p, n=12),
+                      breaks=c(round(seq(0.3, 20, len=10)), 200, 1000, 9000),
                       guide=guide_legend())
 
 ```
