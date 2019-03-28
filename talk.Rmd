@@ -80,8 +80,8 @@ range(pf$p)
 # Basic plot
 
 ```{r, fig.width=10, fig.height=4}
-ggplot(plotdat) +
-  geom_tile(aes(x=x,y=y, fill=p)) +
+ggplot(plotdat, aes(x=x,y=y, fill=p)) +
+  geom_tile() +
   coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
   theme_minimal() +
   us +
@@ -94,8 +94,8 @@ ggplot(plotdat) +
 
 .pull-left[
 ```{r, echo=FALSE}
-basic_pf <- ggplot(pf) +
-  geom_tile(aes(x=x,y=y, fill=p)) +
+basic_pf <- ggplot(pf, aes(x=x,y=y, fill=p)) +
+  geom_tile() +
   coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
   theme_minimal() +
   us
@@ -105,8 +105,8 @@ print(basic_pf)
 
 .pull-right[
 ```{r, eval=FALSE}
-ggplot(pf) +
-  geom_tile(aes(x=x,y=y, fill=p)) +
+ggplot(pf, aes(x=x,y=y, fill=p)) +
+  geom_tile() +
   coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
   theme_minimal() +
   us
@@ -121,8 +121,8 @@ ggplot(pf) +
 
 .pull-left[
 ```{r, echo=FALSE}
-basic_tp <- ggplot(tp) +
-  geom_tile(aes(x=x,y=y, fill=p)) +
+basic_tp <- ggplot(tp, aes(x=x,y=y, fill=p)) +
+  geom_tile() +
   coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
   theme_minimal() +
   us
@@ -132,8 +132,8 @@ print(basic_tp)
 
 .pull-right[
 ```{r, eval=FALSE}
-ggplot(tp) +
-  geom_tile(aes(x=x,y=y, fill=p)) +
+ggplot(tp, aes(x=x,y=y, fill=p)) +
+  geom_tile() +
   coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
   theme_minimal() +
   us
@@ -145,28 +145,35 @@ ggplot(tp) +
 
 # First let's focus on "tp"
 
-
+Main issue: what to do with wide range of values?
 
 ```{r}
-#ggplot(plotdat) +
-#  geom_tile(aes(x=x,y=y, fill=p))+
-#  theme_minimal() +
-#  coord_equal(xlim=range(xgrid$x), ylim=range(xgrid$y), expand=FALSE) +
-#  us +
-#  labs(fill="") +
-#  theme(axis.text=element_blank(),
-#        axis.title=element_blank(),
-#        legend.position="bottom",
-#        legend.direction="horizontal")
+basic_tp + scale_fill_viridis_c(option="E")
 ```
 
+---
+
+# Life advice
+
+![](images/anne churchland.png)
 
 
+---
+
+# log scale?
+
+```{r}
+basic_tp + scale_fill_viridis_c(option="E", trans="log")
+```
 
 ---
 
 # To contour or not to contour?
 
+```{r}
+basic_tp + scale_fill_viridis_c(option="E") +
+  geom_contour(aes(z=p))
+```
 
 ---
 
