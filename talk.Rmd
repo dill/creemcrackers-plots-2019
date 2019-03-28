@@ -57,6 +57,17 @@ class: title-slide, inverse, center
 
 ---
 
+# Context is important
+
+- what do you want people to do with the plot?
+  - read off values?
+  - go "oh shit! that's big/small/etc"?
+  - compare to other plots?
+  - identify important areas?
+
+
+---
+
 ```{r, echo=FALSE}
 load("data/afttdat.RData")
 tp <- subset(plotdat, model=="tp")
@@ -153,20 +164,68 @@ basic_tp + scale_fill_viridis_c(option="E")
 
 ---
 
+class: middle, center
+
+# should scales be linear?
+
+---
+
 # log scale?
 
 ```{r}
-basic_tp + scale_fill_viridis_c(option="E", trans="log")
+basic_tp +
+ scale_fill_viridis_c(option="E",
+                      trans="log",
+                      guide=guide_colourbar())
+```
+
+---
+
+## log scale (better legend)
+
+```{r}
+basic_tp +
+ scale_fill_viridis_c(option="E",
+                      trans="log",
+                      breaks=c(1, 5, 50, 500, 2000, 9000),
+                      guide=guide_colourbar())
+```
+
+---
+
+class: middle, center
+
+# mess about with scales forever??
+
+---
+
+class: middle, center
+
+# discretized scales?
+
+## (need to rebuild plot)
+
+---
+
+
+## discrete scale (pick what's important?)
+
+```{r}
+tp$pd <- cut(tp$p, c(0, 1, 5, 50, 500, 2000, 9000))
+ggplot(tp, aes(x=x,y=y, fill=pd)) +
+  scale_fill_viridis_d(option="E") +
+  geom_tile() +
+  coord_equal(xlim=range(plotdat$x), ylim=range(plotdat$y)) +
+  theme_minimal() +
+  us
 ```
 
 ---
 
 # To contour or not to contour?
 
-( This is for pf )
-
 ```{r}
-basic_pf + scale_fill_viridis_c(option="E") +
+basic_tp + scale_fill_viridis_c(option="E") +
   geom_contour(aes(z=p))
 ```
 
@@ -175,23 +234,42 @@ basic_pf + scale_fill_viridis_c(option="E") +
 
 # That default looks awful
 
-( in `ggplot2` you don't get contour labels? )
-
 ```{r}
-basic_pf + scale_fill_viridis_c(option="E") +
-  geom_contour(aes(z=p), binwidth=1)
+basic_tp + scale_fill_viridis_c(option="E") +
+  geom_contour(aes(z=p), binwidth=1000)
 ```
 
 
 
 ---
 
+class: middle, center
+
 # Are continuous legends actually useless?
+
+## (if you want to read off values?)
+
+---
+
+# `guide_colourbar`
 
 ```{r}
 basic_tp +
  scale_fill_viridis_c(option="E",
-                      breaks=c(round(seq(0.3, 20, len=10)), 200, 1000, 9000),
+                      breaks=pretty(tp$p, n=12),
+                      guide=guide_colourbar())
+
+```
+
+---
+
+
+# `guide_legend`
+
+```{r}
+basic_tp +
+ scale_fill_viridis_c(option="E",
+                      breaks=pretty(tp$p, n=12),
                       guide=guide_legend())
 
 ```
