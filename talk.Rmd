@@ -163,17 +163,33 @@ basic_tp + scale_fill_viridis_c(option="E", trans="log")
 
 # To contour or not to contour?
 
+( This is for pf )
+
 ```{r}
-basic_tp + scale_fill_viridis_c(option="E") +
+basic_pf + scale_fill_viridis_c(option="E") +
   geom_contour(aes(z=p))
 ```
+
+---
+
+
+# That default looks awful
+
+( in `ggplot2` you don't get contour labels? )
+
+```{r}
+basic_pf + scale_fill_viridis_c(option="E") +
+  geom_contour(aes(z=p), binwidth=1)
+```
+
+
 
 ---
 
 # Are continuous legends actually useless?
 
 ```{r}
-basic_tp + scale_fill_viridis_c(option="E", trans="log")
+basic_tp + scale_fill_viridis_c(option="E")
 ```
 
 ---
